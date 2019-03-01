@@ -70,10 +70,12 @@
             margin: 10px;
             width: 200px;
         }
+        .login-inform{
+            margin-top: 20px; 
+        }
 
         .login-inform>p{
             margin: 10px;
-            
             font-size: 18px;
         }
 
@@ -89,7 +91,7 @@
             {{-- <a href="{{ route('login') }}">User Login</a> --}}
             {{-- <a href="{{ route('admin.login') }}">Admin Login</a> --}}
             @if (Route::has('register')) 
-            <a href="{{ route('register') }}">Register</a> @endif @endauth
+            <a  href="{{ route('register') }}">Register</a> @endif @endauth
         </div>
         @endif
 
