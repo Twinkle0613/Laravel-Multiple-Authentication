@@ -8,13 +8,10 @@
                 <div class="card-header">Admin Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in as Admin!
+                    @component('components.who')
+                    @endcomponent
+                        
+                    
                 </div>
             </div>
         </div>
