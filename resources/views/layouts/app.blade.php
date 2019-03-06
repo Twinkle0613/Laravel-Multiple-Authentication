@@ -31,7 +31,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Home
+                    Welcome
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -48,35 +48,82 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                        <li class="nav-item">
+
+                          <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('User') }}</a>
-                        </li>
-                        <li class="nav-item">
+                          </li>
+                          <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Admin') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                        {{-- <li class="nav-item">
+                          </li>
+                          @if (Route::has('register')) {{--
+                          <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li> --}}
-                        @endif @else
-                        <li class="nav-item dropdown">
+                          </li> --}} 
+                          @endif 
+                        
+                        @else 
+                          
+                          @if(Request::path() ==  'admin')
+                           @auth('admin')
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ route('login') }}">{{ __('Go To User') }}</a>
+                           </li>
+                           @endauth 
+                          @endif
+                        
+                          @if(Request::path() ==  'home')
+                           @auth('web')
+                            <li class="nav-item">
+                              <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Go To Admin') }}</a>
+                            </li>
+                           @endauth
+                          @endif
+
+                           <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                                    {{ Auth::user()->name }} 
+                                    <span class="caret"></span>
+                            </a> 
 
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                            @if(Request::path() ==  'home')
+                            @auth('web')
+                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                 <a class="dropdown-item" href="{{ route('users.logout') }}" onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">
+                                         {{ __('Logout') }}
+                                     </a>
+                                 <form id="logout-form" action="{{ route('users.logout') }}" method="POST" style="display: none;">
+                                     @csrf
+                                 </form>
+                             </div>
+                            @endauth
+                            @endif
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                            @if(Request::path() ==  'admin')
+
+                            @auth('admin')
+                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                 <a class="dropdown-item" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
+                                                      document.getElementById('logout-form').submit();">
+                                         {{ __('Logout') }}
+                                     </a>
+                                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                     @csrf
+                                 </form>
+                             </div>
+                            @endauth
+
+                            @endif
+
+
+
+                           </li>
+                          
+
+                          
                         @endguest
+
                     </ul>
                 </div>
             </div>

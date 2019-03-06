@@ -87,7 +87,7 @@
         @if (Route::has('login'))
         <div class="top-right links">
             @auth
-            <a href="{{ url('/home') }}">Home</a> @else
+            {{-- <a href="{{ url('/home') }}">Home</a> @else --}}
             {{-- <a href="{{ route('login') }}">User Login</a> --}}
             {{-- <a href="{{ route('admin.login') }}">Admin Login</a> --}}
             @if (Route::has('register')) 
@@ -100,8 +100,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="login-button">
-                    <a class="btn btn-primary btn-lg"  href="{{ route('login') }}">User Login</a>
-                    <a class="btn btn-primary btn-lg" href="{{ route('admin.login') }}">Admin Login</a>
+                    <a class="btn btn-primary btn-lg"  href="{{ route('home') }}">User</a>
+                    <a class="btn btn-primary btn-lg" href="{{ route('admin.dashboard') }}">Admin</a>
                 </div>
             </div>
             <div class="row justify-content-center">

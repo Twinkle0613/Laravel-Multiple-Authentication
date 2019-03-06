@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
-
+use Debugbar;
 class AdminLoginController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('guest:admin');
+        $this->middleware('guest:admin')->except('logout');
     }
 
     public function showLoginForm()
@@ -36,5 +36,18 @@ class AdminLoginController extends Controller
         //if unsuccessful, then redirect to their intended location
         return redirect()->back()->withInput($request->only('email','remember'));
     }
+
+    public function logout(Request $request)
+    {
+        Debugbar::info('admin logout');
+        Auth::guard('admin')->logout();
+        // $this->guard('admin')->logout();
+        return redirect('/');
+        // $request->session()->invalidate();
+
+        // return $this->loggedOut($request) ?: redirect('/');
+    }
+
+
 
 }
